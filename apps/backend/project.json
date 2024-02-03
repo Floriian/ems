@@ -32,7 +32,7 @@
       "executor": "nx:run-commands",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "cwd": "apps/api",
+        "cwd": "apps/backend",
         "commands": [
           "npx typeorm -d ../../dist/apps/typeorm-migration/src/app/config/typeorm.config.js migration:generate"
         ]
@@ -43,7 +43,7 @@
       "executor": "nx:run-commands",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "cwd": "apps/api",
+        "cwd": "apps/backend",
         "commands": [
           "npx typeorm -d ../../dist/apps/typeorm-migration/src/app/config/typeorm.config.js migration:revert"
         ]
@@ -54,7 +54,7 @@
       "executor": "nx:run-commands",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "cwd": "apps/api",
+        "cwd": "apps/backend",
         "commands": [
           "npx typeorm -d ../../dist/apps/typeorm-migration/src/app/config/typeorm.config.js migration:run"
         ]
