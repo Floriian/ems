@@ -10,6 +10,7 @@ import { typeormConfig } from './config';
 import { TokenModule } from './token/token.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AtGuard } from './auth/guards/at.guard';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AtGuard } from './auth/guards/at.guard';
     EnvModule,
     AuthModule,
     TokenModule,
+    EventsModule,
   ],
   providers: [
     {
