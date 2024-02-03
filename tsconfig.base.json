@@ -15,8 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ems/ui": ["shared/ui/src/index.ts"],
-      "@ems/ui/server": ["shared/ui/src/server.ts"]
+      "@ems/ui": ["shared/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
