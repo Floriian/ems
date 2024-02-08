@@ -43,6 +43,16 @@
         "serveTargetName": "serve",
         "previewTargetName": "preview"
       }
+    },
+    {
+      "plugin": "@nx/vite/plugin",
+      "options": {
+        "buildTargetName": "build",
+        "previewTargetName": "preview",
+        "testTargetName": "test",
+        "serveTargetName": "serve",
+        "serveStaticTargetName": "serve-static"
+      }
     }
   ],
   "generators": {
@@ -53,7 +63,19 @@
       }
     },
     "@nx/react": {
-      "library": {}
+      "library": {
+        "style": "none",
+        "linter": "eslint"
+      },
+      "application": {
+        "babel": true,
+        "style": "none",
+        "linter": "eslint",
+        "bundler": "vite"
+      },
+      "component": {
+        "style": "none"
+      }
     }
   }
 }
