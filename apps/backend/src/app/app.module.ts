@@ -11,6 +11,7 @@ import { TokenModule } from './token/token.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AtGuard } from './auth/guards/at.guard';
 import { EventsModule } from './events/events.module';
+import { CaslModule } from './casl/casl.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { EventsModule } from './events/events.module';
     AuthModule,
     TokenModule,
     EventsModule,
+    CaslModule,
   ],
   providers: [
     {

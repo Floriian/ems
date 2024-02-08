@@ -8,16 +8,18 @@ import {
   PrimaryGeneratedColumn,
   Repository,
 } from 'typeorm';
+import { UserRoles } from './user.roles';
+import { BaseEntity } from '../../utils';
 
 @Entity()
-export class User {
-  @ApiProperty()
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class User extends BaseEntity {
   @ApiProperty()
   @Column({ unique: true })
   email: string;
+
+  @ApiProperty()
+  @Column({ type: 'enum', enum: UserRoles, default: UserRoles.USER })
+  role: UserRoles;
 
   @ApiProperty()
   @Column()
