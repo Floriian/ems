@@ -8,8 +8,6 @@ import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeormConfig } from './config';
 import { TokenModule } from './token/token.module';
-import { APP_GUARD } from '@nestjs/core';
-import { AtGuard } from './auth/guards/at.guard';
 import { EventsModule } from './events/events.module';
 import { CaslModule } from './casl/casl.module';
 
@@ -26,12 +24,6 @@ import { CaslModule } from './casl/casl.module';
     TokenModule,
     EventsModule,
     CaslModule,
-  ],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: AtGuard,
-    },
   ],
 })
 export class AppModule {}
