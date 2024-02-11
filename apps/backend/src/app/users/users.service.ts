@@ -1,12 +1,12 @@
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserRepository } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { SignInDto } from '../auth/dto/sign-in.dto';
 import { QueryFailedError } from 'typeorm';
 import { UserExistsException } from './exceptions/user-exists.exception';
 import { UserNotFoundException } from './exceptions/user-not-found.exeption';
+import { SignInDto } from '@ems/validation';
 @Injectable()
 export class UsersService {
   constructor(@InjectRepository(User) private userRepository: UserRepository) {}

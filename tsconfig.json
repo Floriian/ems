@@ -3,7 +3,9 @@
     "baseUrl": ".",
     "paths": {
       "@ems/shared-ui": ["shared/ui/src/index.ts"],
-      "@ems/shared-ui/*": ["shared/ui/src/*"]
+      "@ems/shared-ui/*": ["shared/ui/src/*"],
+      "@ems/validation": ["shared/validation/src/index.ts"],
+      "@ems/validation/*": ["shared/validation/src/*"]
     }
   }
 }

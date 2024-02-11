@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { SignInDto } from './dto/sign-in.dto';
-import { SignUpDto } from './dto/sign-up.dto';
 import { UsersService } from '../users/users.service';
 import { TokenService } from '../token/token.service';
 import { IncorrectPasswordException } from './exceptions/incorrect-password.exception';
 import argon2 from 'argon2';
 import { AccessDeniedException } from './exceptions/access-denied.exception';
+import { SignInDto, SignUpDto } from '@ems/validation';
 @Injectable()
 export class AuthService {
   constructor(

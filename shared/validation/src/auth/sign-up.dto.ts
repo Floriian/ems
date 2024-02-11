@@ -1,27 +1,24 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Match } from '../../decorators';
+import { passwordCriteria } from './password-criteria.util';
 import {
   IsNotEmpty,
   IsString,
   IsEmail,
   IsStrongPassword,
 } from 'class-validator';
-import { passwordCriteria } from '../../utils';
+import { Match } from '../match.decorator';
 
 export class SignUpDto {
-  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   @IsEmail()
   email: string;
 
-  @ApiProperty()
   @IsString()
   @IsStrongPassword(passwordCriteria)
   @IsNotEmpty()
   password: string;
 
-  @ApiProperty()
   @IsString()
   @Match(SignUpDto, (s) => s.password, {
     message: "password's doesn't matches",

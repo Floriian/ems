@@ -6,6 +6,9 @@ import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 export default defineConfig({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/apps/admin',
+  optimizeDeps: {
+    exclude: ['class-transformer/storage', '@nestjs/swagger'],
+  },
 
   server: {
     port: 4200,

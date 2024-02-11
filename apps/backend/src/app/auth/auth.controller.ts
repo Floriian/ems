@@ -1,12 +1,12 @@
 import { Controller, Post, Body, UseGuards, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { SignInDto } from './dto/sign-in.dto';
-import { SignUpDto } from './dto/sign-up.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { Public } from './decorators/public.decorator';
 import { RtGuard } from './guards/rt.guard';
 import { Request } from 'express';
 import { GetUserId } from './decorators/get-user-id.decorator';
+import { Response } from '@nestjs/common';
+import { SignInDto, SignUpDto } from '@ems/validation';
 @Controller('auth')
 @ApiTags('Auth')
 export class AuthController {
@@ -14,8 +14,14 @@ export class AuthController {
 
   @Public()
   @Post('/sign-in')
-  signIn(@Body() dto: SignInDto) {
-    return this.authService.signIn(dto);
+  async signIn(@Body() dto: SignInDto, @Response() res) {
+    const tokens = await this.authService.signIn(dto);
+    res.cookie('access_token', tokens.access_token, {
+      httpOnly: true,
+    });
+    res.cookie('refresh_token', tokens.refresh_token, {
+      httpOnly: true,
+    });
   }
 
   @Public()
