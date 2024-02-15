@@ -2,6 +2,6 @@
   "name": "@ems/validation",
   "version": "0.0.1",
   "dependencies": {},
-  "type": "commonjs",
-  "main": "./index.cjs"
+  "type": "module",
+  "main": "./index.js"
 }

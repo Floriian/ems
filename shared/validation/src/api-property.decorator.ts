@@ -1,6 +1,4 @@
-import { ApiPropertyOptions } from '@nestjs/swagger';
-
-const ApiProperty = await import('@nestjs/swagger').ApiProperty;
+import { ApiProperty, ApiPropertyOptions } from '@nestjs/swagger';
 
 export function OptionalApiProperty(options?: ApiPropertyOptions | undefined) {
   const isBackend = typeof window === 'undefined';
