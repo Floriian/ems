@@ -1,6 +1,5 @@
 import { Controller, Post, Body, UseGuards, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ApiTags } from '@nestjs/swagger';
 import { Public } from './decorators/public.decorator';
 import { RtGuard } from './guards/rt.guard';
 import { Request } from 'express';
@@ -8,7 +7,6 @@ import { GetUserId } from './decorators/get-user-id.decorator';
 import { Response } from '@nestjs/common';
 import { SignInDto, SignUpDto } from '@ems/validation';
 @Controller('auth')
-@ApiTags('Auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 

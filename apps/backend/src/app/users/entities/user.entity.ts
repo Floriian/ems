@@ -1,5 +1,4 @@
 import argon2 from 'argon2';
-import { ApiProperty } from '@nestjs/swagger';
 import {
   BeforeInsert,
   BeforeUpdate,
@@ -13,19 +12,15 @@ import { BaseEntity } from '../../utils';
 
 @Entity()
 export class User extends BaseEntity {
-  @ApiProperty()
   @Column({ unique: true })
   email: string;
 
-  @ApiProperty()
   @Column({ type: 'enum', enum: UserRoles, default: UserRoles.USER })
   role: UserRoles;
 
-  @ApiProperty()
   @Column()
   password: string;
 
-  @ApiProperty()
   @Column({ nullable: true })
   token?: string;
 

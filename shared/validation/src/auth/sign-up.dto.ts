@@ -1,4 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { passwordCriteria } from './password-criteria.util';
 import {
   IsNotEmpty,

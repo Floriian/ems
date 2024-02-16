@@ -1,5 +1,4 @@
 import { Match, passwordCriteria } from '@ems/validation';
-import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
   IsNotEmpty,
@@ -8,13 +7,11 @@ import {
 } from 'class-validator';
 
 export class CreateUserDto {
-  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   @IsEmail()
   email: string;
 
-  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   @IsStrongPassword(passwordCriteria)
