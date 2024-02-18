@@ -1,3 +1,4 @@
+import argon2 from 'argon2';
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -12,7 +13,12 @@ export class UsersService {
   constructor(@InjectRepository(User) private userRepository: UserRepository) {}
   async create(dto: SignInDto | CreateUserDto) {
     try {
-      return await this.userRepository.save(dto);
+      const hash = await argon2.hash(dto.password);
+      const newUser = await this.userRepository.create({
+        ...dto,
+        password: hash,
+      });
+      return await this.userRepository.save(newUser);
     } catch (e) {
       if (e instanceof QueryFailedError) {
         throw new UserExistsException();
@@ -36,6 +42,16 @@ export class UsersService {
 
   async update(id: number, dto: UpdateUserDto) {
     return await this.userRepository.update({ id }, dto);
+  }
+
+  async updateTokens(id: number, token: string) {
+    const hashedToken = await argon2.hash(token);
+    const tokenResult = await this.userRepository.update(
+      { id },
+      { token: hashedToken }
+    );
+    console.log(tokenResult);
+    return tokenResult;
   }
 
   findAll() {

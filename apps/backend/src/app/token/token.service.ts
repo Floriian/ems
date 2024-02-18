@@ -17,9 +17,7 @@ export class TokenService {
     refreshToken: string
   ): Promise<UpdateResult> {
     const hashedRefreshToken = await argon2.hash(refreshToken);
-    return await this.userService.update(userId, {
-      refresh_token: hashedRefreshToken,
-    });
+    return await this.userService.updateTokens(userId, hashedRefreshToken);
   }
 
   async generateTokens(payload: {

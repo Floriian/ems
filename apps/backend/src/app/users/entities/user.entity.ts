@@ -1,12 +1,4 @@
-import argon2 from 'argon2';
-import {
-  BeforeInsert,
-  BeforeUpdate,
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-  Repository,
-} from 'typeorm';
+import { Column, Entity, Repository } from 'typeorm';
 import { UserRoles } from './user.roles';
 import { BaseEntity } from '../../utils';
 
@@ -23,13 +15,6 @@ export class User extends BaseEntity {
 
   @Column({ nullable: true })
   token?: string;
-
-  @BeforeInsert()
-  @BeforeUpdate()
-  async hashFields() {
-    this.password = await argon2.hash(this.password);
-    this.token = await argon2.hash(this.token);
-  }
 }
 
 export type UserRepository = Repository<User>;

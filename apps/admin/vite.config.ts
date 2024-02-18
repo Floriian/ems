@@ -7,7 +7,7 @@ export default defineConfig({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/apps/admin',
   optimizeDeps: {
-    exclude: ['class-transformer/storage'],
+    exclude: ['class-transformer/storage', '@ems/validation'],
   },
 
   server: {

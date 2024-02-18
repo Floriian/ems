@@ -64,6 +64,7 @@
     "ts-node": "10.9.1",
     "typescript": "~5.3.2",
     "vite": "^5.0.0",
+    "vite-plugin-dts": "~2.3.0",
     "vitest": "^1.0.4",
     "webpack-cli": "^5.1.4"
   },
@@ -97,6 +98,8 @@
     "class-validator": "^0.14.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.4",
     "embla-carousel-autoplay": "^8.0.0-rc22",
     "embla-carousel-react": "^8.0.0-rc22",
     "next": "14.0.4",

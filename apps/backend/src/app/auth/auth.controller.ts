@@ -1,10 +1,9 @@
-import { Controller, Post, Body, UseGuards, Req } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Req, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from './decorators/public.decorator';
 import { RtGuard } from './guards/rt.guard';
-import { Request } from 'express';
+import type { Request, Response } from 'express';
 import { GetUserId } from './decorators/get-user-id.decorator';
-import { Response } from '@nestjs/common';
 import { SignInDto, SignUpDto } from '@ems/validation';
 @Controller('auth')
 export class AuthController {
@@ -12,7 +11,10 @@ export class AuthController {
 
   @Public()
   @Post('/sign-in')
-  async signIn(@Body() dto: SignInDto, @Response() res) {
+  async signIn(
+    @Body() dto: SignInDto,
+    @Res({ passthrough: true }) res: Response
+  ) {
     const tokens = await this.authService.signIn(dto);
     res.cookie('access_token', tokens.access_token, {
       httpOnly: true,
@@ -20,6 +22,8 @@ export class AuthController {
     res.cookie('refresh_token', tokens.refresh_token, {
       httpOnly: true,
     });
+
+    return true;
   }
 
   @Public()
@@ -37,7 +41,7 @@ export class AuthController {
   @UseGuards(RtGuard)
   @Post('refresh')
   refresh(@Req() req: Request, @GetUserId() id: number) {
-    const token = req.user['refreshToken'];
+    const token = req.cookies['refresh_token'];
     return this.authService.refreshTokens(id, token);
   }
 }
