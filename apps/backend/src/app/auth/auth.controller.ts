@@ -40,8 +40,19 @@ export class AuthController {
 
   @UseGuards(RtGuard)
   @Post('refresh')
-  refresh(@Req() req: Request, @GetUserId() id: number) {
+  async refresh(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+    @GetUserId() id: number
+  ) {
     const token = req.cookies['refresh_token'];
-    return this.authService.refreshTokens(id, token);
+    const tokens = await this.authService.refreshTokens(id, token);
+    res.cookie('access_token', tokens.access_token, {
+      httpOnly: true,
+    });
+    res.cookie('refresh_token', tokens.refresh_token, {
+      httpOnly: true,
+    });
+    return true;
   }
 }

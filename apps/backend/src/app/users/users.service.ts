@@ -43,17 +43,6 @@ export class UsersService {
   async update(id: number, dto: UpdateUserDto) {
     return await this.userRepository.update({ id }, dto);
   }
-
-  async updateTokens(id: number, token: string) {
-    const hashedToken = await argon2.hash(token);
-    const tokenResult = await this.userRepository.update(
-      { id },
-      { token: hashedToken }
-    );
-    console.log(tokenResult);
-    return tokenResult;
-  }
-
   findAll() {
     return `This action returns all users`;
   }

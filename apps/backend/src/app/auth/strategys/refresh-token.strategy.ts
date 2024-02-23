@@ -12,7 +12,9 @@ export class RefreshTokenStrategy extends PassportStrategy(
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
-        (req: Request) => req.cookies.refresh_token,
+        (req: Request) => {
+          return req.cookies.refresh_token;
+        },
       ]),
       secretOrKey: process.env.RT_SECRET,
       passReqToCallback: true,

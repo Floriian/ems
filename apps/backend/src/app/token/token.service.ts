@@ -12,13 +12,6 @@ export class TokenService {
     private readonly jwtService: JwtService,
     private readonly envService: EnvService
   ) {}
-  async updateTokens(
-    userId: number,
-    refreshToken: string
-  ): Promise<UpdateResult> {
-    const hashedRefreshToken = await argon2.hash(refreshToken);
-    return await this.userService.updateTokens(userId, hashedRefreshToken);
-  }
 
   async generateTokens(payload: {
     userId: number;

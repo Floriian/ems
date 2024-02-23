@@ -22,9 +22,16 @@ export class AuthService {
       email: user.email,
     });
 
-    await this.tokenService.updateTokens(user.id, tokens.refresh_token);
+    await this.updateToken(user.id, tokens.refresh_token);
 
     return tokens;
+  }
+
+  async updateToken(userId: number, token: string) {
+    const result = await this.usersService.update(userId, {
+      token: token,
+    });
+    return result;
   }
 
   async signUp(dto: SignUpDto) {
@@ -36,7 +43,7 @@ export class AuthService {
   }
 
   async logout(id: number) {
-    return this.usersService.update(id, { refresh_token: null });
+    return this.usersService.update(id, { token: null });
   }
 
   async refreshTokens(id: number, token: string) {
@@ -46,7 +53,12 @@ export class AuthService {
       throw new AccessDeniedException();
     }
 
-    const isTokenMatches = await argon2.verify(user.token, token);
+    console.log('token req', token);
+    console.log('user token', user.token);
+    const tokena = await argon2.hash(token);
+    console.log('hashed token', tokena);
+
+    const isTokenMatches = user.token === token;
     if (!isTokenMatches) {
       console.log('token not matches.');
       throw new AccessDeniedException();
@@ -56,7 +68,9 @@ export class AuthService {
       userId: user.id,
     });
 
-    await this.usersService.updateTokens(user.id, tokens.refresh_token);
+    await this.usersService.update(id, {
+      token: tokens.refresh_token,
+    });
 
     return tokens;
   }
