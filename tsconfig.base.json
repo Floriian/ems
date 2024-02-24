@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@ems/services": ["shared/services/src/index.ts"],
+      "@ems/types": ["shared/types/src/index.ts"],
       "@ems/ui": ["shared/ui/src/index.ts"],
       "@ems/validation": ["shared/validation/src/index.ts"]
     }
