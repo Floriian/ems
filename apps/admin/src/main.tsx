@@ -10,14 +10,26 @@ import '@fontsource/roboto/700.css';
 import { router } from "./app/routes"
 import { Provider } from 'react-redux';
 import { store } from "./app/store/store"
+import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
 root.render(
   <StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </ThemeProvider>
   </StrictMode>
 );

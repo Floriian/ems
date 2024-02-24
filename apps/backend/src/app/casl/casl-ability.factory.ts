@@ -9,7 +9,11 @@ import {
   ExtractSubjectType,
 } from '@casl/ability';
 import { UserRoles } from '../users/entities/user.roles';
-export type Subjects = InferSubjects<typeof User> | 'all';
+import { Event } from '../events/entities/event.entity';
+export type Subjects =
+  | InferSubjects<typeof User>
+  | InferSubjects<typeof Event>
+  | 'all';
 
 export type AppAbility = PureAbility<[Actions, Subjects]>;
 

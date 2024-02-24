@@ -32,32 +32,34 @@ export function LoginPage() {
   }
 
   return (
-    <Box sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '100vh',
-    }}>
-      <Paper component="form" onSubmit={handleSubmit(handleLogin)} sx={{
+    <Box>
+      <Box sx={{
         display: 'flex',
-        gap: 4,
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        width: '100%',
-        maxWidth: 300,
-        padding: 3,
+        height: '100vh',
       }}>
-        <AuthErrorHandler statusCode={error} />
-        <TextField type="text" label="Username" variant="standard" {...register("email")} error={errors.email?.message ? true : false} helperText={
-          errors.email?.message
-        } sx={{ width: '100%' }} />
-        <TextField type="password" label="Password" variant="standard" {...register("password")} error={errors.password?.message ? true : false} helperText={
-          errors.password?.message
-        } sx={{ width: '100%' }} />
-        <Button type="submit">Log In</Button>
-      </Paper>
+        <Paper component="form" onSubmit={handleSubmit(handleLogin)} sx={{
+          display: 'flex',
+          gap: 4,
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100%',
+          maxWidth: 300,
+          padding: 3,
+        }}>
+          <AuthErrorHandler statusCode={error} />
+          <TextField type="text" label="Username" variant="standard" {...register("email")} error={errors.email?.message ? true : false} helperText={
+            errors.email?.message
+          } sx={{ width: '100%' }} />
+          <TextField type="password" label="Password" variant="standard" {...register("password")} error={errors.password?.message ? true : false} helperText={
+            errors.password?.message
+          } sx={{ width: '100%' }} />
+          <Button type="submit">Log In</Button>
+        </Paper>
+      </Box>ß
     </Box>
   )
 }

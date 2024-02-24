@@ -5,6 +5,8 @@ import { Column, Entity, Repository } from 'typeorm';
 export class Event extends BaseEntity {
   @Column()
   name: string;
+  @Column()
+  views: number;
 }
 
 export type EventRepository = Repository<Event>;
