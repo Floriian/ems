@@ -10,7 +10,7 @@ import { typeormConfig } from './config';
 import { TokenModule } from './token/token.module';
 import { EventsModule } from './events/events.module';
 import { CaslModule } from './casl/casl.module';
-
+import { StatisticsModule } from './statistics/statistics.module';
 @Module({
   imports: [
     UsersModule,
@@ -24,6 +24,7 @@ import { CaslModule } from './casl/casl.module';
     TokenModule,
     EventsModule,
     CaslModule,
+    StatisticsModule,
   ],
 })
 export class AppModule {}
