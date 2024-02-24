@@ -5,4 +5,8 @@ function rootSelector(state: RootState) {
   return state.auth;
 }
 
-export const getAuth = createSelector(rootSelector, (state) => state);
+export const getAuth = createSelector(rootSelector, (authState) => {
+  return {
+    isLoggedIn: authState.isLoggedIn,
+  };
+});

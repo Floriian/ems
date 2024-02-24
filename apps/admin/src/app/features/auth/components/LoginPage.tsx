@@ -6,22 +6,30 @@ import { classValidatorResolver } from "@hookform/resolvers/class-validator";
 import { api } from "@ems/services";
 import { HttpStatusCode, isAxiosError } from "axios";
 import { AuthErrorHandler } from "./AuthErrorHandler";
+import { useAuth, useLogin } from "../auth.hooks";
+import { useNavigate } from "react-router-dom";
 export function LoginPage() {
   const { register, handleSubmit, formState: { errors } } = useForm<SignInDto>({ resolver: classValidatorResolver(SignInDto) });
   const [error, setError] = useState<HttpStatusCode>() //we always throw "Invalid credentials" on UI for security reasons, but we created an error handler.
+  const login = useLogin()
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) navigate('/app')
+  }, [isLoggedIn, navigate])
+
 
   const handleLogin: SubmitHandler<SignInDto> = async (data: SignInDto) => {
     try {
       await api.auth.signIn(data);
-
+      login()
     } catch (e) {
       if (isAxiosError(e)) {
         setError(e.response?.status)
       }
     }
   }
-
-  useEffect(() => console.log(error), [error]);
 
   return (
     <Box sx={{
