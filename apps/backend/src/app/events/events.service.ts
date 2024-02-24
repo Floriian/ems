@@ -9,8 +9,10 @@ export class EventsService {
   constructor(
     @InjectRepository(Event) private readonly eventRepository: EventRepository
   ) {}
-  create(createEventDto: CreateEventDto) {
-    return 'This action adds a new event';
+  async create(createEventDto: CreateEventDto) {
+    const event = this.eventRepository.create(createEventDto);
+    await this.eventRepository.save(event);
+    return event;
   }
 
   async findAll() {
@@ -21,6 +23,18 @@ export class EventsService {
     const event = await this.eventRepository.findOneBy({ id });
     if (!event) throw new EventNotFoundException();
     return event;
+  }
+
+  async getMostViewedEvent(eventNumber?: number) {
+    return await this.eventRepository.find({
+      order: { views: 'ASC' },
+      take: eventNumber || 5,
+    });
+  }
+
+  async increaseView(id: number) {
+    const event = await this.eventRepository.findOneBy({ id });
+    return await this.eventRepository.update({ id }, { views: event.views++ });
   }
 
   update(id: number, updateEventDto: UpdateEventDto) {
