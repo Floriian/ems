@@ -1,14 +1,14 @@
-import { Alert, Box, Button, Paper, TextField } from "@mui/material";
+import { Box, Button, Paper, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { SignInDto } from "@ems/validation";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { classValidatorResolver } from "@hookform/resolvers/class-validator";
 import { api } from "@ems/services";
-import { isAxiosError } from "axios";
-
+import { HttpStatusCode, isAxiosError } from "axios";
+import { AuthErrorHandler } from "./AuthErrorHandler";
 export function LoginPage() {
   const { register, handleSubmit, formState: { errors } } = useForm<SignInDto>({ resolver: classValidatorResolver(SignInDto) });
-  const [error, setError] = useState<number>() //we always throw "Invalid credentials" on UI for security reasons
+  const [error, setError] = useState<HttpStatusCode>() //we always throw "Invalid credentials" on UI for security reasons, but we created an error handler.
 
   const handleLogin: SubmitHandler<SignInDto> = async (data: SignInDto) => {
     try {
@@ -16,12 +16,12 @@ export function LoginPage() {
 
     } catch (e) {
       if (isAxiosError(e)) {
-        console.log("is axios")
-        console.log(e)
         setError(e.response?.status)
       }
     }
   }
+
+  useEffect(() => console.log(error), [error]);
 
   return (
     <Box sx={{
@@ -41,11 +41,11 @@ export function LoginPage() {
         maxWidth: 300,
         padding: 3,
       }}>
-        <Alert severity="error" sx={{ width: '100%', display: error !== undefined ? 'flex' : 'none' }}>Invalid credentials.</Alert>
-        <TextField type="text" placeholder="Username" variant="standard" {...register("email")} error={errors.email?.message ? true : false} helperText={
+        <AuthErrorHandler statusCode={error} />
+        <TextField type="text" label="Username" variant="standard" {...register("email")} error={errors.email?.message ? true : false} helperText={
           errors.email?.message
         } sx={{ width: '100%' }} />
-        <TextField type="password" placeholder="Password" variant="standard" {...register("password")} error={errors.password?.message ? true : false} helperText={
+        <TextField type="password" label="Password" variant="standard" {...register("password")} error={errors.password?.message ? true : false} helperText={
           errors.password?.message
         } sx={{ width: '100%' }} />
         <Button type="submit">Log In</Button>

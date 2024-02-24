@@ -49,18 +49,11 @@ export class AuthService {
   async refreshTokens(id: number, token: string) {
     const user = await this.usersService.findOneById(id);
     if (!user || !user.token) {
-      console.log('no user.');
       throw new AccessDeniedException();
     }
 
-    console.log('token req', token);
-    console.log('user token', user.token);
-    const tokena = await argon2.hash(token);
-    console.log('hashed token', tokena);
-
     const isTokenMatches = user.token === token;
     if (!isTokenMatches) {
-      console.log('token not matches.');
       throw new AccessDeniedException();
     }
     const tokens = await this.tokenService.generateTokens({
