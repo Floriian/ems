@@ -1,17 +1,17 @@
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import { drawerItems } from "./drawerItems"
+import { Route, routes } from "../../routes";
 
 export function DrawerContent() {
   return (
     <div>
       <List>
-        {drawerItems.map((item, index) => (
-          <ListItem disablePadding>
+        {routes[1].children[0].children!.map((item: Route, index) => (
+          <ListItem disablePadding key={index}>
             <ListItemButton>
               <ListItemIcon>
                 {item.icon}
               </ListItemIcon>
-              <ListItemText primary={item.label} />
+              <ListItemText primary={item.title} />
             </ListItemButton>
           </ListItem>
         ))}
