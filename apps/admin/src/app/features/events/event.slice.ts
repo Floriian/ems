@@ -15,7 +15,7 @@ export const eventSlice = createSlice({
     });
     builder.addCase(getEventThunks.rejected, (state, { payload }) => {
       state.isLoading = false;
-      state.error = payload;
+      state.error = payload as unknown as any;
     });
   },
 });
